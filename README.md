@@ -1,20 +1,24 @@
 [![CI](https://github.com/nogibjj/706_Week01_YL/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/706_Week01_YL/actions/workflows/cicd.yml)
 
-# 706_Week01_YL
+# 706_Project2_YL
 
-This repository includes the main tasks for Week 1:
+This repository includes the main tasks for Project 2:
 
 * `Makefile` is a configuration file used in Unix-based systems for automating tasks and building software. It contains instructions and dependencies for compiling code, running tests, and other development tasks.
 * `.devcontainer` includes a Dockerfile and `devcontainer.json`. The `Dockerfile` within this folder specifies how the container should be built, and other settings in this directory may control development environment configurations.
 * `Workflows` includes GitHub Actions, which contain configuration files for setting up automated build, test, and deployment pipelines for your project.
 * `.gitignore` is used to specify which files or directories should be excluded from version control when using Git.
 * `README.md` is the instruction file for the readers.
-* `descriptive.py` is a Python file that contains the main function.
-* `test_descriptive.py`  is a test file for `descriptive.py` that can successfully run in IDEs.
+* `main.py` is a Python file that contains the main function.
+* `test_main.py`  is a test file for `main.py` that can successfully run in IDEs.
 * `requirements.txt` is to specify the dependencies (libraries and packages) required to run the project.
 
 ## Project description
 
+* Write well-structured Rust source code and demonstrates a clear understanding of Rust's syntax and unique features.
+* Demonstrate CRUD operations on the SQLite database.
+* Utilize GitHub Copilot to build and run the whole program.
+* Include a process that optimizes Rust binary as a GitHub Actions artifact and is downloadable.
 
 ## Project environment
 
@@ -29,3 +33,7 @@ This repository includes the main tasks for Week 1:
 2. make lint
 
 3. make test
+
+## Video explanation
+
+Link:
