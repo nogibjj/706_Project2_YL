@@ -10,4 +10,7 @@ test:
 run:
 	cargo run 
 
+install:
+    rustup update stable
+
 all: format lint test run
