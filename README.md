@@ -9,9 +9,12 @@ This repository includes the main tasks for Project 2:
 * `Workflows` includes GitHub Actions, which contain configuration files for setting up automated build, test, and deployment pipelines for your project.
 * `.gitignore` is used to specify which files or directories should be excluded from version control when using Git.
 * `README.md` is the instruction file for the readers.
-* `main.py` is a Python file that contains the main function.
-* `test_main.py`  is a test file for `main.py` that can successfully run in IDEs.
 * `requirements.txt` is to specify the dependencies (libraries and packages) required to run the project.
+* `Cargo.toml`
+* `main.rs`
+* `lib.rs`
+* `test_main.rs`
+* `RustCICD.yml`
 
 ## Project description
 
