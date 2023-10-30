@@ -1,12 +1,12 @@
 extern crate csv;
 
-use project2::extract;
 use project2::create_table;
-use project2::load_transform;
+use project2::delete;
+use project2::extract;
 use project2::insert;
+use project2::load_transform;
 use project2::read;
 use project2::update_shape_leng;
-use project2::delete;
 use rusqlite::Connection;
 use std::error::Error;
 
@@ -18,7 +18,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let db_exists = std::path::Path::new(db_path).exists();
 
     extract(url, file_path)?;
-    
+
     let conn = Connection::open(db_path)?;
     create_table(&conn)?;
     if !db_exists {
@@ -35,8 +35,10 @@ fn main() -> Result<(), Box<dyn Error>> {
     match read(&conn) {
         Ok(indexs) => {
             for (id, name_cap_2, num_rom_ca, shape_leng, shape_area) in indexs {
-                println!("ID: {}, Name: {}, Num: {}, Shape Leng: {}, Shape Area: {}",
-                         id, name_cap_2, num_rom_ca, shape_leng, shape_area);
+                println!(
+                    "ID: {}, Name: {}, Num: {}, Shape Leng: {}, Shape Area: {}",
+                    id, name_cap_2, num_rom_ca, shape_leng, shape_area
+                );
             }
         }
         Err(err) => {
@@ -49,7 +51,10 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     match update_shape_leng(&conn, new_shape_leng, num_rom_ca_to_update) {
         Ok(_) => {
-            println!("Updated Shape Leng for num_rom_ca {} to {}", num_rom_ca_to_update, new_shape_leng);
+            println!(
+                "Updated Shape Leng for num_rom_ca {} to {}",
+                num_rom_ca_to_update, new_shape_leng
+            );
         }
         Err(err) => {
             eprintln!("Error updating data: {}", err);
@@ -72,8 +77,10 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     match row {
         Ok((id, name_cap_2, num_rom_ca, shape_leng, shape_area)) => {
-            println!("Updated row: ID: {}, Name: {}, Number: {}, Shape Leng: {}, Shape Area: {}",
-                id, name_cap_2, num_rom_ca, shape_leng, shape_area);
+            println!(
+                "Updated row: ID: {}, Name: {}, Number: {}, Shape Leng: {}, Shape Area: {}",
+                id, name_cap_2, num_rom_ca, shape_leng, shape_area
+            );
         }
         Err(rusqlite::Error::QueryReturnedNoRows) => {
             println!("No record found with num_rom_ca: {}", num_rom_ca_to_update);
@@ -110,11 +117,16 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     match row {
         Ok((id, name_cap_2, num_rom_ca, shape_leng, shape_area)) => {
-            println!("Updated row: ID: {}, Name: {}, Number: {}, Shape Leng: {}, Shape Area: {}",
-                id, name_cap_2, num_rom_ca, shape_leng, shape_area);
+            println!(
+                "Updated row: ID: {}, Name: {}, Number: {}, Shape Leng: {}, Shape Area: {}",
+                id, name_cap_2, num_rom_ca, shape_leng, shape_area
+            );
         }
         Err(rusqlite::Error::QueryReturnedNoRows) => {
-            println!("Delete Successfully! No record found with num_rom_ca: {}", num_rom_ca_to_update);
+            println!(
+                "Delete Successfully! No record found with num_rom_ca: {}",
+                num_rom_ca_to_update
+            );
         }
         Err(err) => {
             eprintln!("Error reading data: {}", err);

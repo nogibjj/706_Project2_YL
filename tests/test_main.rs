@@ -1,12 +1,12 @@
 #[cfg(test)]
 mod tests {
-    use project2::extract;
     use project2::create_table;
-    use project2::load_transform;
+    use project2::delete;
+    use project2::extract;
     use project2::insert;
+    use project2::load_transform;
     use project2::read;
     use project2::update_shape_leng;
-    use project2::delete; 
     use rusqlite::Connection;
 
     const TEST_DB_PATH: &str = "ktopomapseriesindexDB.db";
@@ -19,7 +19,7 @@ mod tests {
         let db_path = "ktopomapseriesindexDB.db";
 
         extract(url, csv_file_path).unwrap();
-        
+
         let conn = Connection::open(db_path).unwrap();
         create_table(&conn).unwrap();
 
@@ -47,7 +47,8 @@ mod tests {
         // Fetch the updated record
         let updated_record = read(&conn).unwrap();
 
-        let (id, name_cap_2, num_rom_ca, shape_leng, shape_area) = &updated_record[updated_record.len()-1];
+        let (id, name_cap_2, num_rom_ca, shape_leng, shape_area) =
+            &updated_record[updated_record.len() - 1];
 
         // Check if the shape length was updated
         assert_eq!(num_rom_ca, "Test UNum");
@@ -69,7 +70,7 @@ mod tests {
 
         // Read and assert that the inserted record is in the database
         let data = read(&conn).unwrap();
-        let record = &data[data.len()-1];
+        let record = &data[data.len() - 1];
         assert_eq!(record.1, name_cap_2);
         assert_eq!(record.2, num_rom_ca);
         assert_eq!(record.3, shape_leng);
@@ -80,7 +81,7 @@ mod tests {
 
         // Ensure that the record has been deleted
         let data = read(&conn).unwrap();
-        let record = &data[data.len()-1];
+        let record = &data[data.len() - 1];
         assert_ne!(record.1, name_cap_2);
         assert_ne!(record.2, num_rom_ca);
         assert_ne!(record.3, shape_leng);

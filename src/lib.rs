@@ -1,7 +1,7 @@
-use reqwest::blocking::Client;
 use csv::Reader;
+use reqwest::blocking::Client;
+use rusqlite::{params, Connection, NO_PARAMS};
 use std::error::Error;
-use rusqlite::{Connection, params, NO_PARAMS};
 
 pub fn extract(url: &str, file_path: &str) -> Result<(), Box<dyn Error>> {
     let mut response = Client::new().get(url).send()?;
@@ -34,7 +34,9 @@ pub fn load_transform(file_path: &str) -> Result<(), Box<dyn std::error::Error>>
     let mut rdr = Reader::from_reader(file);
 
     // Prepare a SQL statement for insertion
-    let mut stmt = conn.prepare("INSERT INTO indexs (name_cap_2, num_rom_ca, Shape_Leng, Shape_Area) VALUES (?, ?, ?, ?)")?;
+    let mut stmt = conn.prepare(
+        "INSERT INTO indexs (name_cap_2, num_rom_ca, Shape_Leng, Shape_Area) VALUES (?, ?, ?, ?)",
+    )?;
 
     // Iterate over the CSV records and insert them into the database
     for result in rdr.records() {
@@ -43,7 +45,7 @@ pub fn load_transform(file_path: &str) -> Result<(), Box<dyn std::error::Error>>
         let num_rom_ca = &record[1];
         let shape_leng: f64 = record[2].parse()?;
         let shape_area: f64 = record[3].parse()?;
-        
+
         // Execute the SQL statement
         stmt.execute(params![name_cap_2, num_rom_ca, shape_leng, shape_area])?;
     }
@@ -67,8 +69,11 @@ pub fn insert(
 }
 
 //write a function that reads the data from the database
-pub fn read(c: &rusqlite::Connection) -> Result<Vec<(i64, String, String, f64, f64)>, rusqlite::Error> {
-    let mut stmt = c.prepare("SELECT id, name_cap_2, num_rom_ca, Shape_Leng, Shape_Area FROM indexs")?;
+pub fn read(
+    c: &rusqlite::Connection,
+) -> Result<Vec<(i64, String, String, f64, f64)>, rusqlite::Error> {
+    let mut stmt =
+        c.prepare("SELECT id, name_cap_2, num_rom_ca, Shape_Leng, Shape_Area FROM indexs")?;
     let indexs_iter = stmt.query_map(NO_PARAMS, |row| {
         Ok((
             row.get(0)?,
