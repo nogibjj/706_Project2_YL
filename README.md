@@ -62,4 +62,4 @@ The workflow is pretty similar to what I performed ETL using Python during the p
 
 ## Video explanation
 
-Link:
+Link: https://www.youtube.com/watch?v=h6UycfH8GGs
